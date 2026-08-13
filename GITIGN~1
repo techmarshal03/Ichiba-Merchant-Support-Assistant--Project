@@ -1,0 +1,74 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+
+# ── Environment / Secrets ─────────────────────────────────
+.env
+.env.*
+!.env.example
+secrets.toml
+*.pem
+*.key
+
+# ── Testing / Coverage ────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+
+# ── IDE ───────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Jupyter ───────────────────────────────────────────────
+.ipynb_checkpoints/
+jupyter notebooks/.ipynb_checkpoints/
+
+# ── Docker ────────────────────────────────────────────────
+*.dockerignore
+
+# ── Kubernetes ────────────────────────────────────────────
+kubeconfig
+*.kubeconfig
+
+# ── Azure ─────────────────────────────────────────────────
+.azure/
+azure.json
+
+# ── LangSmith ─────────────────────────────────────────────
+langsmith_traces/
+
+# ── Models / Embeddings (large files → use Git LFS) ───────
+*.bin
+*.pt
+*.pkl
+*.onnx
+*.safetensors
+ml_model/
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+logs/
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Golden datasets (use DVC or Azure Blob for large files)
+tests/eval/*.jsonl.large

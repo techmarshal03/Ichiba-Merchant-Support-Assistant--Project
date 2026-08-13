@@ -1,0 +1,132 @@
+name: Deploy — Build → Staging → Production
+
+on:
+  push:
+    branches: [main]
+
+env:
+  ACR_REGISTRY: ichiba.azurecr.io
+  IMAGE_NAME: ichiba-agent
+  AKS_CLUSTER_PROD: ichiba-aks-prod
+  AKS_CLUSTER_STAGING: ichiba-aks-staging
+  AKS_RG_PROD: ichiba-rg-prod
+  AKS_RG_STAGING: ichiba-rg-staging
+  NAMESPACE: merchant-support
+
+jobs:
+
+  build:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push to ACR
+        run: |
+          az acr build \
+            --registry ichiba \
+            --image ${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --image ${{ env.IMAGE_NAME }}:latest \
+            .
+
+  deploy-staging:
+    name: Deploy to Staging
+    needs: build
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/aks-set-context@v3
+        with:
+          cluster-name: ${{ env.AKS_CLUSTER_STAGING }}
+          resource-group: ${{ env.AKS_RG_STAGING }}
+
+      - uses: azure/k8s-deploy@v4
+        with:
+          namespace: ${{ env.NAMESPACE }}
+          manifests: k8s/staging/
+          images: |
+            ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  smoke-test:
+    name: Smoke Tests (Staging)
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install httpx pytest
+      - name: Run end-to-end smoke tests
+        run: |
+          python tests/integration/smoke_test.py \
+            --endpoint ${{ secrets.STAGING_ENDPOINT }} \
+            --languages ja en \
+            --scenarios store order payment campaign api policy
+        env:
+          STAGING_JWT: ${{ secrets.STAGING_TEST_JWT }}
+
+  deploy-production:
+    name: Deploy to Production (Canary)
+    needs: smoke-test
+    runs-on: ubuntu-latest
+    environment: production          # ← requires manual approval
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/aks-set-context@v3
+        with:
+          cluster-name: ${{ env.AKS_CLUSTER_PROD }}
+          resource-group: ${{ env.AKS_RG_PROD }}
+
+      - name: Canary deploy (10% traffic)
+        uses: azure/k8s-deploy@v4
+        with:
+          strategy: canary
+          percentage: 10
+          namespace: ${{ env.NAMESPACE }}
+          manifests: k8s/production/
+          images: |
+            ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Monitor canary (5 minutes)
+        run: |
+          python scripts/canary_monitor.py \
+            --endpoint ${{ secrets.PROD_INTERNAL_ENDPOINT }} \
+            --duration 300 \
+            --max-error-rate 0.01 \
+            --max-p95-latency 5.0
+
+      - name: Promote canary to 100%
+        uses: azure/k8s-deploy@v4
+        with:
+          strategy: canary
+          action: promote
+          namespace: ${{ env.NAMESPACE }}
+          manifests: k8s/production/
+          images: |
+            ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Rollback on failure
+        if: failure()
+        uses: azure/k8s-deploy@v4
+        with:
+          strategy: canary
+          action: reject
+          namespace: ${{ env.NAMESPACE }}
+          manifests: k8s/production/

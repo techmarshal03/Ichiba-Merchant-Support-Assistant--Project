@@ -1,0 +1,95 @@
+[tool.poetry]
+name = "ichiba-merchant-support"
+version = "1.0.0"
+description = "Multi-Agent Enterprise AI Platform for Rakuten Ichiba Merchant Support"
+authors = ["Your Team <ai-platform@your-org.com>"]
+readme = "README.md"
+license = "MIT"
+python = "^3.12"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+# ── Agent Framework ───────────────────────────────────────────
+langgraph = "^0.4"
+langchain = "^0.3"
+langchain-openai = "^0.3"
+langchain-core = "^0.3"
+
+# ── LLM & Embeddings ─────────────────────────────────────────
+openai = "^1.60"
+
+# ── Azure Services ────────────────────────────────────────────
+azure-identity = "^1.19"
+azure-keyvault-secrets = "^4.9"
+azure-search-documents = "^11.6"
+azure-cosmos = "^4.9"
+azure-servicebus = "^7.12"
+
+# ── API Server ────────────────────────────────────────────────
+fastapi = "^0.115"
+uvicorn = {extras = ["standard"], version = "^0.34"}
+httpx = "^0.28"
+
+# ── Data Validation ───────────────────────────────────────────
+pydantic = "^2.10"
+pydantic-settings = "^2.7"
+
+# ── Database ─────────────────────────────────────────────────
+asyncpg = "^0.30"
+redis = {extras = ["hiredis"], version = "^5.2"}
+
+# ── Reranker ──────────────────────────────────────────────────
+cohere = "^5.13"
+
+# ── Language Detection ────────────────────────────────────────
+langdetect = "^1.0.9"
+
+# ── PII Protection ────────────────────────────────────────────
+presidio-analyzer = "^2.2"
+presidio-anonymizer = "^2.2"
+spacy = "^3.8"
+
+# ── Observability ─────────────────────────────────────────────
+opentelemetry-sdk = "^1.29"
+opentelemetry-exporter-otlp = "^1.29"
+opentelemetry-instrumentation-fastapi = "^0.50b0"
+prometheus-client = "^0.21"
+langsmith = "^0.2"
+
+# ── Reliability ───────────────────────────────────────────────
+tenacity = "^9.0"
+
+# ── Text Processing ───────────────────────────────────────────
+tiktoken = "^0.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3"
+pytest-asyncio = "^0.24"
+pytest-cov = "^6.0"
+httpx = "^0.28"
+anyio = "^4.7"
+mypy = "^1.13"
+ruff = "^0.8"
+pre-commit = "^4.0"
+ipykernel = "^6.29"
+jupyterlab = "^4.3"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = ["E", "F", "I", "N", "W", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-v --cov=backend --cov-report=xml --cov-report=term-missing"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

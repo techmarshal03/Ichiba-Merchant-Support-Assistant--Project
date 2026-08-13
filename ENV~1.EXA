@@ -1,0 +1,59 @@
+# ══════════════════════════════════════════════════════════════
+# Ichiba Merchant Support Assistant — Environment Configuration
+# Copy this file to .env and fill in your values.
+# ⚠️  NEVER commit the .env file — secrets live in Azure Key Vault
+# ══════════════════════════════════════════════════════════════
+
+# ── Azure Identity ────────────────────────────────────────────
+AZURE_TENANT_ID=your-azure-tenant-id
+AZURE_CLIENT_ID=your-workload-identity-client-id
+KEY_VAULT_URL=https://ichiba-kv.vault.azure.net/
+
+# ── Azure OpenAI ──────────────────────────────────────────────
+# Deployments: gpt4o-ichiba-prod, gpt4o-mini-ichiba, embed-3-large-ichiba
+AZURE_OPENAI_ENDPOINT=https://ichiba-aoai-japaneast.openai.azure.com/
+AZURE_OPENAI_FALLBACK_ENDPOINT=https://ichiba-aoai-sea.openai.azure.com/
+AZURE_OPENAI_API_VERSION=2025-01-01-preview
+
+# ── Azure AI Search ───────────────────────────────────────────
+AZURE_SEARCH_ENDPOINT=https://ichiba-search.search.windows.net
+AZURE_SEARCH_INDEX=ichiba-knowledge-base
+
+# ── Azure Cosmos DB ───────────────────────────────────────────
+COSMOS_ENDPOINT=https://ichiba-cosmos.documents.azure.com/
+COSMOS_DATABASE=ichiba
+COSMOS_CONTAINER_PROFILES=merchant_profiles
+COSMOS_CONTAINER_SESSIONS=sessions
+
+# ── Azure Cache for Redis ─────────────────────────────────────
+REDIS_HOST=ichiba-redis.redis.cache.windows.net
+REDIS_PORT=6380
+REDIS_SSL=true
+
+# ── PostgreSQL (LangGraph Checkpointer) ───────────────────────
+# Secret fetched from Key Vault at runtime. Set here only for local dev.
+# POSTGRES_DSN=postgresql+asyncpg://user:password@localhost:5432/ichiba_checkpoints
+
+# ── Cohere Reranker ───────────────────────────────────────────
+# COHERE_API_KEY=<fetched from Key Vault>
+
+# ── LangSmith (Observability) ─────────────────────────────────
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT=ichiba-merchant-support
+# LANGCHAIN_API_KEY=<fetched from Key Vault>
+
+# ── Application ───────────────────────────────────────────────
+ENVIRONMENT=development           # development | staging | production
+LOG_LEVEL=INFO
+MAX_CONCURRENT_SESSIONS=500
+AGENT_MAX_ITERATIONS=5
+CONFIDENCE_THRESHOLD=0.75
+HALLUCINATION_THRESHOLD=0.35
+SEMANTIC_CACHE_SIMILARITY=0.95
+
+# ── Azure Service Bus (Escalation Queue) ──────────────────────
+SERVICE_BUS_NAMESPACE=ichiba-servicebus.servicebus.windows.net
+SERVICE_BUS_QUEUE=merchant-queries-escalation
+
+# ── Prometheus Metrics ────────────────────────────────────────
+METRICS_PORT=9090

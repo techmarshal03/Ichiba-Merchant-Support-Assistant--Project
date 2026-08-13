@@ -1,0 +1,189 @@
+<svg viewBox="0 0 1100 780" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1100" height="780" fill="#0f1117" rx="16"/>
+
+  <!-- Title -->
+  <text x="550" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#e0e0e0">Ichiba Merchant Support Assistant — Multi-Agent Architecture</text>
+  <text x="550" y="62" text-anchor="middle" font-size="12" fill="#888">LangGraph · Hybrid RAG · Azure OpenAI GPT-4o · AKS · Multilingual JP/EN</text>
+
+  <!-- ENTRY POINTS box -->
+  <rect x="30" y="85" width="1040" height="65" rx="10" fill="#1a2233" stroke="#334"/>
+  <text x="550" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#7eb8f7">MERCHANT ENTRY POINTS</text>
+  <rect x="65"  y="114" width="160" height="28" rx="6" fill="#1e3a5f" stroke="#3b6ea8"/>
+  <text x="145" y="133" text-anchor="middle" font-size="11" fill="#90c8ff">RMS Portal</text>
+  <rect x="255" y="114" width="160" height="28" rx="6" fill="#1e3a5f" stroke="#3b6ea8"/>
+  <text x="335" y="133" text-anchor="middle" font-size="11" fill="#90c8ff">Chat Widget</text>
+  <rect x="445" y="114" width="160" height="28" rx="6" fill="#1e3a5f" stroke="#3b6ea8"/>
+  <text x="525" y="133" text-anchor="middle" font-size="11" fill="#90c8ff">LINE Bot</text>
+  <rect x="635" y="114" width="160" height="28" rx="6" fill="#1e3a5f" stroke="#3b6ea8"/>
+  <text x="715" y="133" text-anchor="middle" font-size="11" fill="#90c8ff">REST / WebSocket API</text>
+  <rect x="825" y="114" width="215" height="28" rx="6" fill="#1e3a5f" stroke="#3b6ea8"/>
+  <text x="932" y="133" text-anchor="middle" font-size="11" fill="#90c8ff">Azure API Management</text>
+
+  <!-- Arrow down -->
+  <line x1="550" y1="150" x2="550" y2="175" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#777"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <!-- SUPERVISOR box -->
+  <rect x="150" y="178" width="800" height="82" rx="12" fill="#1a2f1a" stroke="#2d6a2d" stroke-width="2"/>
+  <text x="550" y="200" text-anchor="middle" font-size="13" font-weight="bold" fill="#6fcf6f">SUPERVISOR AGENT  (GPT-4o)</text>
+  <text x="550" y="218" text-anchor="middle" font-size="11" fill="#9ecf9e">Language Detect  →  Intent Classify  →  Route</text>
+  <text x="550" y="235" text-anchor="middle" font-size="11" fill="#9ecf9e">Confidence Gate  →  Hallucination Check  →  Response Format</text>
+  <rect x="162" y="245" width="120" height="8" rx="4" fill="#2d6a2d" opacity="0.5"/>
+  <rect x="500" y="245" width="100" height="8" rx="4" fill="#f59e0b" opacity="0.4"/>
+  <text x="550" y="252" text-anchor="middle" font-size="9" fill="#f59e0b">Escalation Guard</text>
+
+  <!-- 6 Specialist Agents -->
+  <!-- Store -->
+  <line x1="220" y1="260" x2="140" y2="305" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="50"  y="305" width="155" height="60" rx="9" fill="#132213" stroke="#2d6a2d"/>
+  <text x="127" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#4ade80">🏪 Store</text>
+  <text x="127" y="341" text-anchor="middle" font-size="10" fill="#7ecf7e">Agent</text>
+  <text x="127" y="356" text-anchor="middle" font-size="9" fill="#555">Setup · Listing · Images</text>
+
+  <!-- Order -->
+  <line x1="330" y1="260" x2="255" y2="305" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="215" y="305" width="155" height="60" rx="9" fill="#131c2a" stroke="#2a5ea8"/>
+  <text x="292" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">📦 Order</text>
+  <text x="292" y="341" text-anchor="middle" font-size="10" fill="#7eb8f7">Agent</text>
+  <text x="292" y="356" text-anchor="middle" font-size="9" fill="#555">Lookup · Cancel · Track</text>
+
+  <!-- Payment -->
+  <line x1="440" y1="260" x2="390" y2="305" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="348" y="305" width="155" height="60" rx="9" fill="#2a2010" stroke="#a07020"/>
+  <text x="425" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#f59e0b">💴 Payment</text>
+  <text x="425" y="341" text-anchor="middle" font-size="10" fill="#f0b830">Agent</text>
+  <text x="425" y="356" text-anchor="middle" font-size="9" fill="#555">Payout · Fees · Invoice</text>
+
+  <!-- Campaign -->
+  <line x1="560" y1="260" x2="558" y2="305" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="518" y="305" width="155" height="60" rx="9" fill="#2a1020" stroke="#a02060"/>
+  <text x="595" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#f472b6">🎁 Campaign</text>
+  <text x="595" y="341" text-anchor="middle" font-size="10" fill="#f0a0c0">Agent</text>
+  <text x="595" y="356" text-anchor="middle" font-size="9" fill="#555">SuperSALE · Coupons</text>
+
+  <!-- API/RMS -->
+  <line x1="680" y1="260" x2="720" y2="305" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="685" y="305" width="155" height="60" rx="9" fill="#1a1230" stroke="#6040a0"/>
+  <text x="762" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#a78bfa">🔌 API/RMS</text>
+  <text x="762" y="341" text-anchor="middle" font-size="10" fill="#c0a0f8">Agent</text>
+  <text x="762" y="356" text-anchor="middle" font-size="9" fill="#555">RMS API · Webhooks</text>
+
+  <!-- Policy -->
+  <line x1="780" y1="260" x2="885" y2="305" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4"/>
+  <rect x="855" y="305" width="155" height="60" rx="9" fill="#2a1808" stroke="#a04010"/>
+  <text x="932" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">⚖️ Policy</text>
+  <text x="932" y="341" text-anchor="middle" font-size="10" fill="#f0a080">Agent</text>
+  <text x="932" y="356" text-anchor="middle" font-size="9" fill="#555">Rules · Violations</text>
+
+  <!-- HYBRID RAG RETRIEVER -->
+  <line x1="550" y1="365" x2="550" y2="400" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="150" y="403" width="800" height="70" rx="12" fill="#1e1a2a" stroke="#5b21b6" stroke-width="2"/>
+  <text x="550" y="425" text-anchor="middle" font-size="13" font-weight="bold" fill="#a78bfa">🔍 HYBRID RAG RETRIEVER</text>
+  <rect x="200" y="435" width="140" height="24" rx="6" fill="#2d1f5e" stroke="#6040a0"/>
+  <text x="270" y="452" text-anchor="middle" font-size="10" fill="#c0a0ff">Dense Vector Search</text>
+  <text x="360" y="452" text-anchor="middle" font-size="14" fill="#555">+</text>
+  <rect x="388" y="435" width="140" height="24" rx="6" fill="#2d1f5e" stroke="#6040a0"/>
+  <text x="458" y="452" text-anchor="middle" font-size="10" fill="#c0a0ff">BM25 Sparse (ja.microsoft)</text>
+  <text x="555" y="452" text-anchor="middle" font-size="14" fill="#555">→</text>
+  <rect x="568" y="435" width="60" height="24" rx="6" fill="#1e1040" stroke="#8060c0"/>
+  <text x="598" y="452" text-anchor="middle" font-size="10" fill="#d0c0ff">RRF</text>
+  <text x="645" y="452" text-anchor="middle" font-size="14" fill="#555">→</text>
+  <rect x="658" y="435" width="120" height="24" rx="6" fill="#2d1f5e" stroke="#6040a0"/>
+  <text x="718" y="452" text-anchor="middle" font-size="10" fill="#c0a0ff">Cohere Reranker</text>
+  <text x="794" y="452" text-anchor="middle" font-size="14" fill="#555">→</text>
+  <rect x="807" y="435" width="120" height="24" rx="6" fill="#1e1040" stroke="#8060c0"/>
+  <text x="867" y="452" text-anchor="middle" font-size="10" fill="#d0c0ff">Top-5 Chunks</text>
+
+  <!-- Bottom data stores -->
+  <!-- Azure AI Search -->
+  <line x1="270" y1="473" x2="220" y2="520" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="40"  y="522" width="190" height="80" rx="10" fill="#0c1a2e" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="40"  y="518" font-size="20" fill="#60a5fa">🔎</text>
+  <text x="135" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">Azure AI Search</text>
+  <text x="135" y="564" text-anchor="middle" font-size="10" fill="#7eb8f7">S2 · 2 replicas</text>
+  <text x="135" y="580" text-anchor="middle" font-size="10" fill="#7eb8f7">Vector + BM25 Hybrid</text>
+  <text x="135" y="595" text-anchor="middle" font-size="9" fill="#445">ja.microsoft analyzer</text>
+
+  <!-- Cosmos DB -->
+  <line x1="430" y1="473" x2="430" y2="520" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="265" y="522" width="190" height="80" rx="10" fill="#0c1a1a" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="265" y="518" font-size="20" fill="#2dd4bf">🗄️</text>
+  <text x="360" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="#2dd4bf">Azure Cosmos DB</text>
+  <text x="360" y="564" text-anchor="middle" font-size="10" fill="#5eead4">Japan East</text>
+  <text x="360" y="580" text-anchor="middle" font-size="10" fill="#5eead4">Merchant Profiles</text>
+  <text x="360" y="595" text-anchor="middle" font-size="9" fill="#445">Session consistency</text>
+
+  <!-- Redis -->
+  <line x1="550" y1="473" x2="550" y2="520" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="488" y="522" width="190" height="80" rx="10" fill="#1a0c0c" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="488" y="518" font-size="20" fill="#f87171">⚡</text>
+  <text x="583" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="#f87171">Azure Redis Cache</text>
+  <text x="583" y="564" text-anchor="middle" font-size="10" fill="#fca5a5">P1 · 6GB clustered</text>
+  <text x="583" y="580" text-anchor="middle" font-size="10" fill="#fca5a5">Semantic Cache</text>
+  <text x="583" y="595" text-anchor="middle" font-size="9" fill="#445">cosine ≥ 0.95 hit</text>
+
+  <!-- PostgreSQL -->
+  <line x1="680" y1="473" x2="680" y2="520" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="714" y="522" width="190" height="80" rx="10" fill="#0a1a0a" stroke="#15803d" stroke-width="1.5"/>
+  <text x="714" y="518" font-size="20" fill="#4ade80">🐘</text>
+  <text x="809" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="#4ade80">PostgreSQL</text>
+  <text x="809" y="564" text-anchor="middle" font-size="10" fill="#86efac">LangGraph Checkpointer</text>
+  <text x="809" y="580" text-anchor="middle" font-size="10" fill="#86efac">Session State</text>
+  <text x="809" y="595" text-anchor="middle" font-size="9" fill="#445">per merchant thread</text>
+
+  <!-- Service Bus -->
+  <line x1="850" y1="473" x2="930" y2="520" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="887" y="522" width="190" height="80" rx="10" fill="#1a1200" stroke="#a16207" stroke-width="1.5"/>
+  <text x="887" y="518" font-size="20" fill="#fbbf24">📨</text>
+  <text x="982" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="#fbbf24">Azure Service Bus</text>
+  <text x="982" y="564" text-anchor="middle" font-size="10" fill="#fde68a">Escalation Queue</text>
+  <text x="982" y="580" text-anchor="middle" font-size="10" fill="#fde68a">Human Handoff</text>
+  <text x="982" y="595" text-anchor="middle" font-size="9" fill="#445">DLQ on failure</text>
+
+  <!-- AKS + Observability footer -->
+  <rect x="30" y="625" width="500" height="120" rx="10" fill="#111827" stroke="#374151"/>
+  <text x="280" y="648" text-anchor="middle" font-size="12" font-weight="bold" fill="#9ca3af">☸️  AKS DEPLOYMENT  (Japan East, Multi-Zone)</text>
+  <text x="280" y="666" text-anchor="middle" font-size="10" fill="#6b7280">min 3 pods · max 20 pods · HPA on CPU + Queue Depth</text>
+  <text x="280" y="682" text-anchor="middle" font-size="10" fill="#6b7280">Workload Identity · Key Vault CSI · PodDisruptionBudget</text>
+  <text x="280" y="698" text-anchor="middle" font-size="10" fill="#6b7280">Canary Deploy: 10% → monitor 5 min → 100%</text>
+  <rect x="50"  y="706" width="100" height="24" rx="5" fill="#1f2937" stroke="#374151"/>
+  <text x="100" y="723" text-anchor="middle" font-size="10" fill="#9ca3af">🐳 Docker</text>
+  <rect x="165" y="706" width="100" height="24" rx="5" fill="#1f2937" stroke="#374151"/>
+  <text x="215" y="723" text-anchor="middle" font-size="10" fill="#9ca3af">⛵ Helm</text>
+  <rect x="280" y="706" width="120" height="24" rx="5" fill="#1f2937" stroke="#374151"/>
+  <text x="340" y="723" text-anchor="middle" font-size="10" fill="#9ca3af">🔄 GitHub Actions</text>
+  <rect x="415" y="706" width="100" height="24" rx="5" fill="#1f2937" stroke="#374151"/>
+  <text x="465" y="723" text-anchor="middle" font-size="10" fill="#9ca3af">🏗️ Terraform</text>
+
+  <rect x="555" y="625" width="515" height="120" rx="10" fill="#111827" stroke="#374151"/>
+  <text x="812" y="648" text-anchor="middle" font-size="12" font-weight="bold" fill="#9ca3af">📊  OBSERVABILITY STACK</text>
+  <rect x="575" y="658" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#4338ca"/>
+  <text x="635" y="675" text-anchor="middle" font-size="10" fill="#818cf8">🔭 LangSmith</text>
+  <rect x="710" y="658" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#4338ca"/>
+  <text x="770" y="675" text-anchor="middle" font-size="10" fill="#818cf8">📡 OpenTelemetry</text>
+  <rect x="845" y="658" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#4338ca"/>
+  <text x="905" y="675" text-anchor="middle" font-size="10" fill="#818cf8">📈 Prometheus</text>
+  <rect x="575" y="692" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#b45309"/>
+  <text x="635" y="709" text-anchor="middle" font-size="10" fill="#fbbf24">📊 Grafana</text>
+  <rect x="710" y="692" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#b45309"/>
+  <text x="770" y="709" text-anchor="middle" font-size="10" fill="#fbbf24">🔔 Azure Monitor</text>
+  <rect x="845" y="692" width="120" height="24" rx="5" fill="#1c1f2e" stroke="#059669"/>
+  <text x="905" y="709" text-anchor="middle" font-size="10" fill="#34d399">⚖️ LLM-as-Judge</text>
+  <text x="812" y="734" text-anchor="middle" font-size="10" fill="#4b5563">Nightly Eval · Golden Dataset (200 JP + 100 EN) · Faithfulness ≥ 0.85</text>
+
+  <!-- Security badge row -->
+  <rect x="30" y="755" width="1040" height="20" rx="5" fill="#0c1117" stroke="#1f2937"/>
+  <text x="80"  y="769" font-size="10" fill="#6b7280">🔐 Zero-Trust Secrets</text>
+  <text x="240" y="769" font-size="10" fill="#6b7280">🛡️ Prompt Injection Guard (JP+EN)</text>
+  <text x="470" y="769" font-size="10" fill="#6b7280">🎭 PII Masking (Presidio)</text>
+  <text x="650" y="769" font-size="10" fill="#6b7280">🔑 RBAC by Merchant Tier</text>
+  <text x="840" y="769" font-size="10" fill="#6b7280">✅ APPI · GDPR Compliant</text>
+</svg>

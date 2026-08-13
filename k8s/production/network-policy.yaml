@@ -1,0 +1,30 @@
+# Deny all ingress by default; allow only from ingress controller and monitoring
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ichiba-agent-netpol
+  namespace: merchant-support
+spec:
+  podSelector:
+    matchLabels:
+      app: ichiba-agent
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - protocol: TCP
+          port: 9090
+  egress:
+    - {}   # allow all egress (Azure services via private endpoints)

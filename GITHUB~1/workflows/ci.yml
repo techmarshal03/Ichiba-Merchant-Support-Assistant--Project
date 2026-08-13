@@ -1,0 +1,111 @@
+name: CI — Test & Security Scan
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [develop]
+
+jobs:
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: ichiba_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+          python -m spacy download ja_core_news_sm
+          python -m spacy download en_core_web_sm
+
+      - name: Run unit tests
+        run: pytest tests/unit/ -v --cov=backend --cov-report=xml
+        env:
+          ENVIRONMENT: test
+          POSTGRES_DSN: postgresql+asyncpg://postgres:postgres@localhost:5432/ichiba_test
+          REDIS_HOST: localhost
+          REDIS_PORT: "6379"
+          REDIS_SSL: "false"
+
+      - name: Run offline evaluation (JP)
+        run: |
+          python tests/eval/offline_eval.py \
+            --lang ja \
+            --dataset tests/eval/golden_dataset_ja.jsonl \
+            --fail-below 0.80
+        env:
+          ENVIRONMENT: test
+        continue-on-error: false
+
+      - name: Run offline evaluation (EN)
+        run: |
+          python tests/eval/offline_eval.py \
+            --lang en \
+            --dataset tests/eval/golden_dataset_en.jsonl \
+            --fail-below 0.80
+        env:
+          ENVIRONMENT: test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage.xml
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trivy — filesystem vulnerability scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          severity: CRITICAL,HIGH
+          exit-code: 1
+          format: sarif
+          output: trivy-results.sarif
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+        if: always()
+
+      - name: Bandit — Python SAST
+        run: |
+          pip install bandit
+          bandit -r backend/ -ll -ii --format json -o bandit-results.json
+        continue-on-error: false
+
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: "pip"}
+      - run: pip install ruff mypy
+      - run: ruff check backend/ tests/
+      - run: mypy backend/ --ignore-missing-imports

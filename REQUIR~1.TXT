@@ -1,0 +1,52 @@
+# ── Agent Framework ───────────────────────────────────────────
+langgraph>=0.4.0
+langchain>=0.3.0
+langchain-openai>=0.3.0
+langchain-core>=0.3.0
+
+# ── LLM & Embeddings ─────────────────────────────────────────
+openai>=1.60.0
+
+# ── Azure Services ────────────────────────────────────────────
+azure-identity>=1.19.0
+azure-keyvault-secrets>=4.9.0
+azure-search-documents>=11.6.0
+azure-cosmos>=4.9.0
+azure-servicebus>=7.12.0
+
+# ── API Server ────────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+httpx>=0.28.0
+
+# ── Data Validation ───────────────────────────────────────────
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+
+# ── Database ─────────────────────────────────────────────────
+asyncpg>=0.30.0
+redis[hiredis]>=5.2.0
+
+# ── Reranker ──────────────────────────────────────────────────
+cohere>=5.13.0
+
+# ── Language Detection ────────────────────────────────────────
+langdetect>=1.0.9
+
+# ── PII Protection ────────────────────────────────────────────
+presidio-analyzer>=2.2.0
+presidio-anonymizer>=2.2.0
+spacy>=3.8.0
+
+# ── Observability ─────────────────────────────────────────────
+opentelemetry-sdk>=1.29.0
+opentelemetry-exporter-otlp>=1.29.0
+opentelemetry-instrumentation-fastapi>=0.50b0
+prometheus-client>=0.21.0
+langsmith>=0.2.0
+
+# ── Reliability ───────────────────────────────────────────────
+tenacity>=9.0.0
+
+# ── Text Processing ───────────────────────────────────────────
+tiktoken>=0.8.0

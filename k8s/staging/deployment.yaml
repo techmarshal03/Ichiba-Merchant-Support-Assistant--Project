@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ichiba-merchant-support
+  namespace: ichiba-staging
+  labels:
+    app: ichiba-merchant-support
+    environment: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ichiba-merchant-support
+  template:
+    metadata:
+      labels:
+        app: ichiba-merchant-support
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: ichiba-workload-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: ichiba-agent
+          image: ichibaacr.azurecr.io/ichiba-merchant-support:staging
+          ports:
+            - containerPort: 8000
+            - containerPort: 9090
+              name: metrics
+          env:
+            - name: ENVIRONMENT
+              value: staging
+            - name: LOG_LEVEL
+              value: DEBUG
+            - name: LANGCHAIN_TRACING_V2
+              value: "true"
+            - name: LANGCHAIN_PROJECT
+              value: ichiba-staging
+          envFrom:
+            - secretRef:
+                name: ichiba-secrets
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2000m"
+              memory: "4Gi"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          volumeMounts:
+            - name: secrets-store
+              mountPath: "/mnt/secrets"
+              readOnly: true
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: ichiba-secrets-provider

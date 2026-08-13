@@ -1,0 +1,5 @@
+{"id":"ja-001","domain":"store","query":"楽天市場の店舗を開設するために必要な書類は何ですか？","expected_answer":"楽天市場への出店には、法人登記簿謄本（法人の場合）、銀行口座情報、本人確認書類が必要です。申請後、審査に通過すると店舗開設が可能になります。","category":"store_setup","difficulty":"low"}
+{"id":"ja-002","domain":"order","query":"注文のキャンセルはどのタイミングまで可能ですか？","expected_answer":"出荷前であればキャンセルが可能です。出荷後はキャンセルではなく返品対応となります。RMS管理画面の注文管理からキャンセル処理を行ってください。","category":"order_management","difficulty":"medium"}
+{"id":"ja-003","domain":"payment","query":"売上金の振込スケジュールを教えてください。","expected_answer":"楽天市場では月2回の振込スケジュール（月末締め・翌月15日払い、15日締め・当月末払い）が基本です。詳細は契約内容により異なりますので、マーチャントアカウントでご確認ください。","category":"payment_settlement","difficulty":"medium"}
+{"id":"ja-004","domain":"campaign","query":"スーパーSALEに参加するための条件は何ですか？","expected_answer":"スーパーSALEへの参加には、一定期間の出店実績、評価スコアの基準達成、参加申し込みの期限内提出が必要です。詳細な条件はRMS内のキャンペーンページでご確認ください。","category":"campaign","difficulty":"medium"}
+{"id":"ja-005","domain":"api","query":"RMS APIで在庫数を一括更新する方法を教えてください。","expected_answer":"RMS APIのInventory APIエンドポイント（POST /inventory/update）を使用して在庫数を一括更新できます。リクエストボディにitem_idと在庫数のペアをJSON配列で指定してください。","category":"api_technical","difficulty":"high"}
